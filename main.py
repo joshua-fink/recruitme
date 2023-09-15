@@ -1,14 +1,21 @@
 from typing import Optional
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Body
+import openai
+
+openai.api_key = "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"
 
 app = FastAPI()
 
-
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
-
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Optional[str] = None):
-    return {"item_id": item_id, "q": q}
+@app.post("/generate_email")
+async def generate_email(
+    recruiter_name: str=Body(), 
+    recruiter_email: str=Body(),
+    company: str=Body(),
+    role: str=Body(),
+    comments: str=Body(),
+    api_key: str=Body(),
+):
+    openai.api_key = api_key
+    openai.api_key = ""
+    return "YAY"
