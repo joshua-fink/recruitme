@@ -3,14 +3,16 @@ from typing import Optional
 from fastapi import FastAPI, Body
 import openai
 
-openai.api_key = "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"
-
 app = FastAPI()
+
+@app.get("/")
+async def root():
+    return {"message": "Hello World"}
 
 @app.post("/generate_email")
 async def generate_email(
-    recruiter_name: str=Body(), 
-    recruiter_email: str=Body(),
+    name: str=Body(), 
+    email: str=Body(),
     company: str=Body(),
     role: str=Body(),
     comments: str=Body(),
@@ -18,4 +20,4 @@ async def generate_email(
 ):
     openai.api_key = api_key
     openai.api_key = ""
-    return "YAY"
+    return "YAY {name} {email} {company} {role} {comments}"
